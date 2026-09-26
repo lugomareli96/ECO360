@@ -214,11 +214,6 @@ async function procesarFotoPlanta(input){
  // Coloca aquí tu clave personal obtenida en my.plantnet.org
  const API_KEY = "2b10f7kf9lGojLa4H1ZsZiswO"; 
 
- if(API_KEY === "2b10f7kf9lGojLa4H1ZsZiswO") {
-   est.innerHTML = "⚠️ <span style='color:#a85a3f'>Falta agregar tu API Key de PlantNet en el código.</span><br><small class='mut'>Coloca tu clave personal en la variable API_KEY dentro del script.</small>";
-   return;
- }
-
  const formData = new FormData();
  formData.append("images", f);
  formData.append("organs", "auto");
