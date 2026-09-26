@@ -219,10 +219,11 @@ async function procesarFotoPlanta(input){
  formData.append("organs", "auto");
 
  try {
-   const res = await fetch(`https://my-api.plantnet.org/v2/identify/all?api-key=${API_KEY}&lang=es`, {
-     method: "POST",
-     body: formData
-   });
+  const urlAPI = `https://my-api.plantnet.org/v2/identify/all?api-key=${API_KEY}&lang=es`;
+const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(urlAPI)}`, {
+  method: 'POST',
+  body: formData
+});
    
    if(!res.ok) {
      const errorData = await res.json().catch(() => ({}));
