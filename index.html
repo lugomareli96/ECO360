@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ECO360 🌎🌱</title>
+<style>
+:root{--bg:#eaf6ec;--card:#fff;--tx:#1b2e20;--mut:#6a8a72;--g:#1f6e4e;--g2:#3f9d6f;--gL:#e7f2ea;--bd:#d6ecdb;--bgA:#f6fbf6;--bgB:#ddf0e2;
+--sh:0 1px 2px rgba(10,50,30,.05),0 6px 18px rgba(10,50,30,.07);
+--c-mision:#b8863a;--c-clasifica:#2f7f8f;--c-planta:#1f6e4e;--c-miplanta:#5c7a2e;--c-mascota:#a85a3f;--c-perfil:#3d5a80}
+:root:not([data-theme="light"]){@media (prefers-color-scheme:dark){--bg:#0f1f16;--card:#17281d;--tx:#e6f3e9;--mut:#8fb69b;--bd:#213b29;--gL:#152a1f;--sh:0 1px 2px rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.28);--bgA:#16281c;--bgB:#0b150f}}
+:root[data-theme="dark"]{--bg:#0f1f16;--card:#17281d;--tx:#e6f3e9;--mut:#8fb69b;--bd:#213b29;--gL:#152a1f;--sh:0 1px 2px rgba(0,0,0,.2),0 6px 18px rgba(0,0,0,.28);--bgA:#16281c;--bgB:#0b150f}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(90% 60% at 12% -6%,var(--bgA) 0%,var(--bg) 55%),radial-gradient(90% 60% at 100% 108%,var(--bgB) 0%,var(--bg) 55%);color:var(--tx);font-family:-apple-system,"Segoe UI",system-ui,sans-serif;padding-bottom:80px;letter-spacing:.1px}
+.wrap{max-width:560px;margin:0 auto;padding:14px}
+h1{font-size:2rem;margin:.2em 0;letter-spacing:-.3px}
+h2{font-size:1.08rem;margin:.5em 0;font-weight:700;letter-spacing:-.1px;display:flex;align-items:center;gap:7px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:15px;margin-bottom:12px;box-shadow:var(--sh)}
+button{font:inherit;cursor:pointer;border:0;border-radius:13px;padding:12px 16px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font-weight:600;box-shadow:0 3px 10px rgba(31,110,78,.22)}
+button.sec{background:transparent;color:var(--g);border:1.5px solid var(--g);box-shadow:none}
+button:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);display:flex;justify-space-around:space-around;padding:7px 2px;box-shadow:0 -4px 16px rgba(20,40,30,.06)}
+nav button{background:none;color:var(--mut);font-size:.63rem;padding:5px 2px;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;box-shadow:none;font-weight:600}
+nav button span{font-size:1.15rem;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:10px;transition:background .15s}
+nav button.on{color:var(--nc,var(--g))}
+nav button.on span{background:var(--nc,var(--g));color:#fff}
+.hero{background:radial-gradient(120% 140% at 15% 0%,#2c8a63,var(--g) 55%,#134430);color:#fff;border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 10px 28px rgba(19,68,48,.28)}
+.pill{display:inline-block;background:var(--gL);border:1px solid var(--bd);border-radius:999px;padding:4px 11px;font-size:.76rem;margin:2px 4px 2px 0;font-weight:600;color:var(--g)}
+.bar{height:9px;background:var(--bd);border-radius:99px;overflow:hidden}.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--g),var(--g2))}
+small,.mut{color:var(--mut)}
+.sec-title{color:var(--sc,var(--g));font-size:1.25rem}
+.pf-head{text-align:center;padding:22px 10px 14px}
+.av-wrap{position:relative;display:inline-block;cursor:pointer}
+.av{width:96px;height:96px;border-radius:50%;object-fit:cover;border:3px solid var(--g2);display:block;box-shadow:var(--sh)}
+.av-ph{width:96px;height:96px;border-radius:50%;border:3px solid var(--g2);background:linear-gradient(135deg,var(--g),#2c8a63);color:#fff;display:flex;align-items:center;justify-content:center;font-size:2.2rem;font-weight:700;box-shadow:var(--sh)}
+.av-edit{position:absolute;right:-2px;bottom:0;background:var(--c-perfil);color:#fff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;border:2px solid var(--bg)}
+.badge-nivel{display:inline-block;margin-top:6px;background:var(--gL);border:1px solid var(--bd);border-radius:999px;padding:5px 14px;font-weight:700;font-size:.85rem;color:var(--g)}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--bd);border-radius:15px;padding:12px;text-align:center;box-shadow:var(--sh)}
+.stat span{font-size:1.4rem;display:block}
+.stat b{display:block;font-size:1.1rem;margin:2px 0}
+.ins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(78px,1fr));gap:10px;text-align:center}
+.soc{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;margin:6px 0;box-shadow:none;font-weight:600}
+.soc-g{background:#fff;color:#3c4043;border:1px solid var(--bd)}
+.soc-f{background:#1877F2;color:#fff}
+.or{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--mut);font-size:.8rem}
+.or:before,.or:after{content:"";flex:1;height:1px;background:var(--bd)}
+.ins{opacity:.4}
+.ins.on{opacity:1}
+.ins-ic{font-size:1.6rem;background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:10px 0;margin-bottom:4px}
+.ins small{font-size:.68rem;display:block;line-height:1.2}
+img.ph{width:100%;max-height:200px;object-fit:cover;border-radius:12px;margin:8px 0}
+input,select{font:inherit;padding:10px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);width:100%;margin:6px 0}
+.hide{display:none}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:90px;background:var(--g);color:#fff;padding:10px 18px;border-radius:99px;z-index:9;font-weight:600}
+.planta{font-size:4.5rem;text-align:center;margin:8px}
+table{width:100%;border-collapse:collapse}td{padding:5px 0;border-bottom:1px solid var(--bd);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<nav id="nav" class="hide"></nav>
+<script>
+const MIS=[
+ {id:1,n:"🌱 Identifica una planta de tu escuela",d:"Usa EcoPlanta y registra 1 planta.",lv:1,p:20},
+ {id:2,n:"🗑️ Registra correctamente un residuo",d:"Usa EcoClasifica con 1 residuo.",lv:1,p:10},
+ {id:3,n:"🐝 Aprende sobre un polinizador",d:"Revisa la ficha de una EcoMascota polinizadora.",lv:1,p:20},
+ {id:4,n:"🌿 Identifica 3 plantas diferentes",d:"Descubre 3 especies distintas.",lv:2,p:40},
+ {id:5,n:"♻️ Separa correctamente 5 residuos",d:"Registra 5 residuos en EcoClasifica.",lv:2,p:50},
+ {id:6,n:"💧 Riega tu planta adoptada",d:"Desbloquea y usa la acción Regar.",lv:2,p:35},
+ {id:7,n:"🌳 Investiga una planta nativa",d:"Descubre una planta de origen americano.",lv:3,p:60},
+ {id:8,n:"🦋 Mejora el hábitat de tu EcoMascota",d:"Desbloquea una acción de cuidado.",lv:3,p:70},
+ {id:9,n:"🌎 Clasifica un residuo electrónico",d:"Registra un aparato en EcoClasifica.",lv:3,p:80},
+ {id:10,n:"⭐ Misión especial: EcoGuardián",d:"Completa 8 misiones y adopta una planta.",lv:4,p:100},
+ {id:11,n:"🍃 Encuentra una planta con flores",d:"Fotografía una planta en floración de tu entorno.",lv:1,p:25},
+ {id:12,n:"🥤 Detecta un plástico de un solo uso",d:"Registra un envase desechable y piensa cómo evitarlo.",lv:1,p:20},
+ {id:13,n:"💧 Revisa una fuga de agua en casa o escuela",d:"Toma evidencia de una llave, manguera o tinaco.",lv:2,p:40},
+ {id:14,n:"🌳 Mide la sombra de un árbol",d:"Fotografía un árbol y observa cuánta sombra da.",lv:2,p:45},
+ {id:15,n:"🐜 Observa un insecto en su hábitat",d:"Captura evidencia sin molestar al animal.",lv:2,p:45},
+ {id:16,n:"♻️ Revisa los contenedores de tu escuela",d:"Documenta si la separación de residuos es correcta.",lv:3,p:65},
+ {id:17,n:"🌱 Siembra una semilla",d:"Toma evidencia de tu siembra en maceta o suelo.",lv:3,p:75},
+ {id:18,n:"🧃 Reutiliza un envase",d:"Convierte un envase en maceta, portalápices u otro objeto.",lv:3,p:70},
+ {id:19,n:"🚶 Recorrido EcoDetective",d:"Documenta un problema ambiental de tu comunidad.",lv:3,p:85},
+ {id:20,n:"⭐ Misión especial: EcoLíder",d:"Enseña a alguien más a separar residuos y toma evidencia.",lv:4,p:120}];
+const ACC=[{v:"📷 Fotografía y describe",p:0},{v:"🔍 Investiga y documenta",p:10},{v:"✅ Revisa el estado de",p:5},{v:"🧹 Mejora o limpia",p:20},{v:"📝 Registra tres ejemplos de",p:15},{v:"🤝 Comparte con tu familia",p:25}];
+const TEM=["una planta nativa de tu región","un polinizador de tu comunidad","el manejo de residuos de tu salón","un árbol cercano a tu casa","una fuente de agua de tu colonia","un residuo electrónico en desuso","un espacio verde de tu escuela","la composta o los residuos orgánicos","un animal que viva en tu entorno","el consumo de energía en tu hogar"];
+
+const PL=[
+ {n:"Lavanda",c:"Lavandula angustifolia",o:"Mediterráneo",t:"Aromática",tam:"60 cm",luz:"Sol pleno",ag:"Baja",su:"Drenante",tem:"15-28°C",cu:"Podar tras floración",be:"Atrae polinizadores",cur:"Su aroma repele mosquitos",cost:250,e:"💜"},
+ {n:"Aloe vera",c:"Aloe barbadensis",o:"Península arábiga",t:"Suculenta",tam:"50 cm",luz:"Luz indirecta fuerte",ag:"Muy baja",su:"Arenoso",tem:"18-30°C",cu:"No encharcar",be:"Purifica el aire",cur:"Su gel es cicatrizante",cost:180,e:"🌵"},
+ {n:"Nochebuena",c:"Euphorbia pulcherrima",o:"México",t:"Arbusto",tam:"1-3 m",luz:"Luz brillante",ag:"Media",su:"Rico en materia orgánica",tem:"16-24°C",cu:"Evitar corrientes frías",be:"Planta nativa mexicana",cur:"Los Aztecas la llamaban cuetlaxóchitl",cost:300,e:"🌺"},
+ {n:"Menta",c:"Mentha spicata",o:"Europa y Asia",t:"Herbácea",tam:"40 cm",luz:"Media sombra",ag:"Alta",su:"Húmedo",tem:"15-25°C",cu:"Podar seguido",be:"Refugio de insectos benéficos",cur:"Se expande muy rápido",cost:150,e:"🌿"},
+ {n:"Helecho",c:"Nephrolepis exaltata",o:"Zonas tropicales",t:"Helecho",tam:"70 cm",luz:"Sombra",ag:"Alta",su:"Húmedo y suelto",tem:"18-26°C",cu:"Rociar hojas",be:"Aumenta la humedad",cur:"Existen desde antes que los dinosaurios",cost:200,e:"🌱"}];
+
+const ILUS={
+"Lavanda":'<svg viewBox="0 0 120 120"><rect x="30" y="92" width="60" height="16" rx="4" fill="#a9744f"/><rect x="34" y="96" width="52" height="9" rx="3" fill="#8a5c3c"/><g stroke="#4c7a4f" stroke-width="3" fill="none"><path d="M60 96 L52 60"/><path d="M60 96 L60 55"/><path d="M60 96 L68 60"/><path d="M60 96 L44 68"/><path d="M60 96 L76 68"/></g><g fill="#8b6bc7"><ellipse cx="52" cy="55" rx="5" ry="12"/><ellipse cx="60" cy="48" rx="5" ry="14"/><ellipse cx="68" cy="55" rx="5" ry="12"/><ellipse cx="44" cy="63" rx="4" ry="10"/><ellipse cx="76" cy="63" rx="4" ry="10"/></g></svg>',
+"Aloe vera":'<svg viewBox="0 0 120 120"><rect x="28" y="90" width="64" height="18" rx="5" fill="#c98a4b"/><rect x="32" y="94" width="56" height="10" rx="3" fill="#a86f38"/><g fill="#3f9d5c"><path d="M60 98 C55 70 50 45 46 20 C58 40 62 65 64 98 Z"/><path d="M60 98 C65 70 70 45 74 20 C62 40 58 65 56 98 Z"/><path d="M60 98 C48 75 38 55 28 35 C46 48 55 68 60 98 Z"/><path d="M60 98 C72 75 82 55 92 35 C74 48 65 68 60 98 Z"/></g></svg>',
+"Nochebuena":'<svg viewBox="0 0 120 120"><rect x="34" y="92" width="52" height="16" rx="4" fill="#a9744f"/><rect x="38" y="96" width="44" height="9" rx="3" fill="#8a5c3c"/><g fill="#3f7d45"><ellipse cx="45" cy="70" rx="14" ry="9"/><ellipse cx="75" cy="70" rx="14" ry="9"/></g><g fill="#d63b3b"><path d="M60 92 L48 55 L60 65 L72 55 Z"/><path d="M60 92 L36 62 L52 68 L46 45 L60 60 Z"/><path d="M60 92 L84 62 L68 68 L74 45 L60 60 Z"/></g></svg>',
+"Menta":'<svg viewBox="0 0 120 120"><rect x="32" y="92" width="56" height="16" rx="4" fill="#a9744f"/><rect x="36" y="96" width="48" height="9" rx="3" fill="#8a5c3c"/><g stroke="#3f7d45" stroke-width="3" fill="none"><path d="M60 96 L60 40"/></g><g fill="#4fae5f"><ellipse cx="46" cy="55" rx="11" ry="7" transform="rotate(-30 46 55)"/><ellipse cx="74" cy="55" rx="11" ry="7" transform="rotate(30 74 55)"/><ellipse cx="44" cy="75" rx="11" ry="7" transform="rotate(-25 44 75)"/><ellipse cx="76" cy="75" rx="11" ry="7" transform="rotate(25 76 75)"/><ellipse cx="60" cy="40" rx="9" ry="6"/></g></svg>',
+"Helecho":'<svg viewBox="0 0 120 120"><rect x="30" y="94" width="60" height="14" rx="4" fill="#a9744f"/><rect x="34" y="98" width="52" height="8" rx="3" fill="#8a5c3c"/><g stroke="#2f7d45" stroke-width="2.5" fill="none"><path d="M60 96 C50 80 40 60 25 45"/><path d="M60 96 C55 75 50 55 45 30"/><path d="M60 96 C60 72 60 50 60 25"/><path d="M60 96 C65 75 70 55 75 30"/><path d="M60 96 C70 80 80 60 95 45"/></g><g fill="#3f9d5c"><ellipse cx="25" cy="45" rx="8" ry="4"/><ellipse cx="45" cy="30" rx="8" ry="4"/><ellipse cx="60" cy="25" rx="7" ry="4"/><ellipse cx="75" cy="30" rx="8" ry="4"/><ellipse cx="95" cy="45" rx="8" ry="4"/></g></svg>'};
+
+const MA=[
+ {n:"Mariposa",e:"🦋",h:"Jardines y praderas",a:"Néctar",i:"Poliniza flores silvestres",cur:"Prueba sabores con las patas",cost:400,pol:1,acc:["🌸 Espacio con flores","💧 Colocar agua","🌿 Mejorar hábitat","🦋 Ciclo de vida"]},
+ {n:"Abeja",e:"🐝",h:"Colmenas y campos",a:"Néctar y polen",i:"Poliniza cultivos de alimentos",cur:"Bailan para dar direcciones",cost:450,pol:1,acc:["🌼 Sembrar flores","💧 Bebedero","🏠 Refugio","🍯 Aprender polinización"]},
+ {n:"Colibrí",e:"🐦",h:"Bosques y jardines",a:"Néctar e insectos",i:"Poliniza plantas tubulares",cur:"Sus alas baten 80 veces por segundo",cost:500,pol:1,acc:["🌺 Flores rojas","💧 Bebedero","🌳 Árboles nativos","🐦 Aprender migración"]},
+ {n:"Mariquita",e:"🐞",h:"Huertos y jardines",a:"Pulgones",i:"Control natural de plagas",cur:"Come hasta 50 pulgones al día",cost:350,pol:0,acc:["🌱 Plantas sin pesticida","💧 Humedad","🍃 Hojarasca","🐞 Aprender su ciclo"]},
+ {n:"Tortuga",e:"🐢",h:"Estanques y humedales",a:"Plantas acuáticas e insectos",i:"Mantiene limpios los cuerpos de agua",cur:"Puede vivir más de 80 años",cost:550,pol:0,acc:["💧 Cuerpo de agua limpio","🌿 Vegetación acuática","☀️ Zona de sol","🐢 Aprender su hábitat"]}];
+
+const CASITAS={"Mariposa":{n:"🏡 Jardín de mariposas",e:"🏡"},"Abeja":{n:"🏠 Hotel de abejas",e:"🏠"},"Colibrí":{n:"🍽️ Comedero-refugio",e:"🍽️"},"Mariquita":{n:"🌿 Refugio de hojarasca",e:"🌿"},"Tortuga":{n:"💧 Mini estanque",e:"💧"}};
+const RES={Plástico:"Enjuaga, aplasta y separa la tapa. Va al contenedor de reciclables.",Papel:"Debe estar seco y sin grasa. Separa de residuos orgánicos.",Cartón:"Desarma y aplana las cajas antes de entregarlas.",Vidrio:"Enjuaga el envase; no mezcles vidrio roto con el resto.",Metal:"Enjuaga latas y aplástalas para reducir volumen.",Orgánico:"Puede ir a composta: restos de fruta, verdura y hojas.",Electrónico:"No va a la basura común. Llévalo a un centro de acopio RAEE.","No reciclable":"Va a residuos sanitarios o de disposición final. Intenta reducir su uso."};
+const NIV=[[0,"Semilla 🌱"],[150,"Brote 🌿"],[350,"Guardián Verde 🌳"],[700,"EcoMaestro 🌎"]];
+const CUID=[{n:"💧 Regar",c:20},{n:"☀️ Dar luz",c:30},{n:"🌱 Fertilizar",c:40},{n:"🪴 Cambiar maceta",c:50}];
+const ETAPAS=["🌱 Semilla","🌿 Brote","🌷 Planta joven","🌳 Planta desarrollada"];
+const INS=[{n:"♻️ Experto en reciclaje",f:s=>s.res.length>=20},{n:"🌿 Amigo de las plantas",f:s=>s.desc.length>=10},{n:"🌎 EcoExplorador",f:s=>s.hechas.length>=15},{n:"🐝 Guardián de la biodiversidad",f:s=>s.mascotas.length>=1&&s.desc.length>=3},{n:"🪴 Cuidador",f:s=>s.cuidados.length>=2},{n:"🏠 Arquitecto ecológico",f:s=>s.casitas.length>=1}];
+
+let S,tab="inicio";
+function def(n){return{nombre:n,foto:null,proveedor:null,puntos:0,hechas:[],desc:[],res:[],planta:null,crec:0,cuidados:[],mascotas:[],accMasc:[],casitas:[],ins:[],evid:[],hist:[],gen:null,plantasEscaneadas:[],fotosReales:{}}}
+function save(){try{localStorage.setItem("eco360",JSON.stringify(S))}catch(e){}}
+function load(){try{const d=localStorage.getItem("eco360");if(d){S=JSON.parse(d);if(!S.evid)S.evid=[];if(!S.plantasEscaneadas)S.plantasEscaneadas=[];if(!S.casitas)S.casitas=[];if(!S.fotosReales)S.fotosReales={};if(S.proveedor===undefined)S.proveedor=null;if(S.foto===undefined)S.foto=null;if(!S.hist)S.hist=S.hechas.map(i=>{const m=MIS.find(x=>x.id==i);return m?m.n:"EcoMisión"})}}catch(e){}}
+function nivel(){let r=NIV[0][1];NIV.forEach(x=>{if(S.puntos>=x[0])r=x[1]});return r}
+function mision(){const m=MIS.find(x=>!S.hechas.includes(x.id));if(m)return m;
+ if(!S.gen||S.hechas.includes(S.gen.id))S.gen=generar();return S.gen}
+function generar(){const libres=[];ACC.forEach((a,i)=>TEM.forEach((t,j)=>{if(!S.hechas.includes("g"+i+"-"+j))libres.push([i,j])}));
+ if(!libres.length){S.hechas=S.hechas.filter(x=>typeof x=="number");return generar()}
+ const p=libres[Math.floor(Math.random()*libres.length)],i=p[0],j=p[1],a=ACC[i];
+ const lv=Math.min(3,1+Math.floor(S.hechas.length/8)),esp=S.hechas.length%7==0;
+ return{id:"g"+i+"-"+j,n:(esp?"⭐ ":"")+a.v+" "+TEM[j],d:"Toma evidencia en vivo de "+TEM[j]+".",lv:esp?4:lv,p:(esp?100:20+lv*15)+a.p}}
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function gana(p,txt){S.puntos+=p;toast("+"+p+" EcoPuntos 🌱"+(txt?" · "+txt:""));chkIns();save()}
+function chkIns(){INS.forEach(i=>{if(!S.ins.includes(i.n)&&i.f(S)){S.ins.push(i.n);setTimeout(()=>toast("🏅 Insignia: "+i.n),900)}})}
+function go(t){tab=t;render()}
+const H=s=>s.replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));
+
+function render(){
+ const a=document.getElementById("app"),nv=document.getElementById("nav");
+ if(!S){nv.classList.add("hide");a.innerHTML=`<div class="hero"><h1>🌎 ECO360</h1><p>“Aprende, cuida y haz crecer tu mundo.”</p></div>
+ <div class="card"><h2><span class="sec-title" style="--sc:var(--c-perfil)">👤</span> Crear cuenta / Iniciar sesión</h2>
+ <button class="soc soc-g" onclick="entrarSocial('Google')"><svg viewBox="0 0 48 48" width="18" height="18"><path fill="#EA4335" d="M24 9.5c3.4 0 6.4 1.2 8.8 3.5l6.6-6.6C35.3 2.6 30 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.7 6C12.2 13.1 17.6 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.9 7.2l7.5 5.8c4.4-4 6.9-10 6.9-17.5z"/><path fill="#FBBC05" d="M10.3 19.2c-.5 1.5-.8 3.1-.8 4.8s.3 3.3.8 4.8l-7.7 6C.9 31.3 0 27.8 0 24s.9-7.3 2.6-10.8l7.7 6z"/><path fill="#34A853" d="M24 48c6 0 11.3-2 15.1-5.4l-7.5-5.8c-2.1 1.4-4.7 2.2-7.6 2.2-6.4 0-11.8-3.6-13.7-8.7l-7.7 6C6.5 42.6 14.6 48 24 48z"/></svg> Continuar con Google</button>
+ <button class="soc soc-f" onclick="entrarSocial('Facebook')"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg> Continuar con Facebook</button>
+ <div class="or"><span>o</span></div>
+ <input id="nm" placeholder="Tu nombre"><button onclick="entrar()">🌱 Comenzar con correo</button></div>`;return}
+ nv.classList.remove("hide");
+ nv.innerHTML=[["misiones","🎯","Misiones","--c-mision"],["clasifica","📷","Clasifica","--c-clasifica"],["planta","🔬","EcoPlanta","--c-planta"],["miplanta","🌸","Mi Planta","--c-miplanta"],["mascotas","🦋","Mascotas","--c-mascota"],["perfil","👤","Perfil","--c-perfil"]]
+  .map(([k,e,l,c])=>`<button class="${tab==k?'on':''}" style="--nc:var(${c})" onclick="go('${k}')"><span>${e}</span>${l}</button>`).join("");
+ a.innerHTML=V[tab]?V[tab]():V.misiones();
+}
+const V={};
+V.misiones=()=>{const m=mision();return `<h2><span class="sec-title" style="--sc:var(--c-mision)">🎯</span> EcoMisiones</h2>${bar()}`+(m?`<div class="card"><h2>${m.n}</h2><p class="mut">${m.d}</p>
+ <span class="pill">Nivel ${m.lv}</span><span class="pill">🌱 +${m.p}</span><span class="pill">Pendiente</span>
+ <p style="margin:10px 0 4px"><b>📸 Evidencia en vivo</b><br><small class="mut">Abre la cámara y toma la foto en el momento. Sin evidencia no se puede completar.</small></p>
+ <input type="file" accept="image/*" capture="environment" onchange="prev(this,'fm',1)"><img id="fm" class="ph hide">
+ <div class="row"><button id="bc" disabled onclick="completar('${m.id}')">Completar misión</button></div>
+ <small class="mut" id="av">Esperando evidencia…</small></div>`
+ :``)+
+ `<div class="card"><h2>Completadas (${S.hechas.length})</h2>${S.hist.slice().reverse().slice(0,15).map(t=>`<div>✅ ${t}</div>`).join("")||"<span class='mut'>Aún ninguna</span>"}</div>`+
+ `<div class="card"><h2>📸 Galería de evidencias (${S.evid.length})</h2><div class="grid">${S.evid.slice().reverse().map(e=>`<div><img src="${e.img}" class="ph" style="max-height:110px"><small class="mut">${e.n}<br>${e.f}</small></div>`).join("")||"<span class='mut'>Aún no hay evidencias</span>"}</div></div>`}
+
+function completar(id){if(S.hechas.includes(id))return;const m=MIS.find(x=>x.id==id)||S.gen;if(!m)return;
+ if(!LAST)return toast("📸 Toma primero la evidencia");
+ S.hechas.push(m.id);S.hist.push(m.n);S.evid.push({id:m.id,n:m.n,img:LAST,f:new Date().toLocaleString()});
+ if(S.evid.length>12)S.evid.shift();
+ LAST=null;gana(m.p);render();const n=mision();if(n)setTimeout(()=>toast("Nueva misión: "+n.n),1200)}
+
+function bar(){const nx=NIV.find(x=>x[0]>S.puntos);const p=nx?Math.min(100,S.puntos/nx[0]*100):100;
+ return `<div class="card"><b>🌱 ${S.puntos} EcoPuntos</b> · <span class="mut">${nivel()}</span><div class="bar" style="margin-top:8px"><i style="width:${p}%"></i></div></div>`}
+
+V.clasifica=()=>`<h2><span class="sec-title" style="--sc:var(--c-clasifica)">📷</span> EcoClasifica</h2>${bar()}<div class="card"><p class="mut">Toma una foto del residuo y selecciona su categoría.</p>
+ <input type="file" accept="image/*" capture="environment" onchange="prev(this,'fr')"><img id="fr" class="ph hide">
+ <select id="cat">${Object.keys(RES).map(k=>`<option>${k}</option>`).join("")}</select>
+ <div id="info" class="mut"></div><button onclick="regRes()">Registrar residuo</button></div>
+ <div class="card"><h2>Registro (${S.res.length})</h2>${S.res.slice(-8).reverse().map(r=>`<div>🗑️ ${r.c} <small class="mut">${r.f}</small></div>`).join("")||"<span class='mut'>Sin registros</span>"}</div>`;
+let LAST=null;
+
+function prev(i,id,mis){const f=i.files[0];if(!f)return;const r=new FileReader();
+ r.onload=()=>{const img=new Image();img.onload=()=>{const c=document.createElement("canvas"),e=260/Math.max(img.width,img.height);
+  c.width=img.width*e;c.height=img.height*e;c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+  LAST=c.toDataURL("image/jpeg",.6);
+  const im=document.getElementById(id);if(im){im.src=LAST;im.classList.remove("hide")}
+  if(mis){const b=document.getElementById("bc"),a=document.getElementById("av");
+   if(b)b.disabled=false;if(a)a.textContent="✅ Evidencia lista · "+new Date().toLocaleTimeString()}};
+  img.src=r.result};
+ r.readAsDataURL(f)}
+
+function regRes(){const c=document.getElementById("cat").value;S.res.push({c:c,f:new Date().toLocaleDateString()});
+ document.getElementById("info").innerHTML="<b>"+c+"</b><br>"+RES[c];
+ gana(10,"residuo registrado");
+ const m=mision();if(m&&((m.id==2)||(m.id==5&&S.res.length>=5)||(m.id==9&&c=="Electrónico")))completar(m.id);else render()}
+
+function todasPlantas(){return PL.concat(S.plantasEscaneadas||[])}
+
+V.planta=()=>{
+ return `<h2><span class="sec-title" style="--sc:var(--c-planta)">🔬</span> EcoPlanta (Mundial)</h2>${bar()}
+ <div class="card">
+  <p class="mut">Toma o sube una foto de cualquier planta. Se identificará automáticamente en la base de datos científica mundial.</p>
+  <input type="file" id="fpIn" accept="image/*" capture="environment" onchange="procesarFotoPlanta(this)">
+  <img id="fp" class="ph hide">
+  <div id="iaEstado" class="mut" style="margin-top:10px;font-weight:600"></div>
+  <div id="ficha"></div>
+ </div>
+ <div class="card">
+  <h2>Mis plantas descubiertas (${S.desc.length})</h2>
+  ${S.desc.map(n=>`<span class="pill">${n}</span>`).join("")||"<span class='mut'>Ninguna todavía</span>"}
+ </div>`};
+
+async function procesarFotoPlanta(input){
+ const f=input.files[0];if(!f)return;
+ const im=document.getElementById("fp");im.src=URL.createObjectURL(f);im.classList.remove("hide");
+ const est=document.getElementById("iaEstado");
+ est.textContent="🌍 Conectando con el servidor de Pl@ntNet para identificación científica...";
+ document.getElementById("ficha").innerHTML="";
+
+ // Coloca aquí tu clave personal obtenida en my.plantnet.org
+ const API_KEY = "2b10f7kf9lGojLa4H1ZsZiswO"; 
+
+ if(API_KEY === "2b10f7kf9lGojLa4H1ZsZiswO") {
+   est.innerHTML = "⚠️ <span style='color:#a85a3f'>Falta agregar tu API Key de PlantNet en el código.</span><br><small class='mut'>Coloca tu clave personal en la variable API_KEY dentro del script.</small>";
+   return;
+ }
+
+ const formData = new FormData();
+ formData.append("images", f);
+ formData.append("organs", "auto");
+
+ try {
+   const res = await fetch(`https://my-api.plantnet.org/v2/identify/all?api-key=${API_KEY}&lang=es`, {
+     method: "POST",
+     body: formData
+   });
+   
+   if(!res.ok) {
+     const errorData = await res.json().catch(() => ({}));
+     throw new Error(errorData.message || `Error ${res.status}: Clave API no válida o límite excedido`);
+   }
+   
+   const data = await res.json();
+   if (data.results && data.results.length > 0) {
+     const top = data.results[0];
+     const nombreCientifico = top.species?.scientificNameWithoutAuthor || top.species?.scientificName || "Especie no identificada";
+     const nombreComun = (top.species?.commonNames && top.species.commonNames.length > 0) 
+       ? top.species.commonNames[0] 
+       : nombreCientifico;
+     const confianza = Math.round((top.score || 0) * 100);
+
+     est.textContent = `✅ ¡Identificada con ${confianza}% de precisión científica!`;
+
+     const r=new FileReader();
+     r.onload=()=>{
+       const img=new Image();img.onload=()=>{
+         const c=document.createElement("canvas"),sz=260,s=Math.max(sz/img.width,sz/img.height);
+         c.width=sz;c.height=sz;const ctx=c.getContext("2d"),w=img.width*s,h=img.height*s;
+         ctx.drawImage(img,(sz-w)/2,(sz-h)/2,w,h);
+         const dataUrl = c.toDataURL("image/jpeg",.8);
+         
+         const nuevaPlanta = {
+           n: nombreComun.charAt(0).toUpperCase() + nombreComun.slice(1),
+           c: nombreCientifico,
+           o: "Global / Silvestre",
+           t: "Planta identificada",
+           tam: "Variable",
+           luz: "Luz solar recomendada",
+           ag: "Moderada",
+           su: "Suelo fértil",
+           tem: "Adaptable",
+           cu: "Consultar guía botánica según especie",
+           be: "Aporta al ecosistema local",
+           cur: `Especie registrada científicamente con ${confianza}% de certeza.`,
+           cost: 200,
+           e: "🌿",
+           foto: dataUrl
+         };
+
+         if(!S.plantasEscaneadas) S.plantasEscaneadas = [];
+         if(!S.plantasEscaneadas.find(p => p.c === nombreCientifico)){
+           S.plantasEscaneadas.push(nuevaPlanta);
+         }
+
+         if(!S.fotosReales) S.fotosReales={};
+         S.fotosReales[nuevaPlanta.n] = dataUrl;
+         save();
+
+         mostrarFicha(nuevaPlanta, true);
+         document.getElementById("ficha").insertAdjacentHTML("beforeend",
+           `<button style="width:100%;margin-top:12px" onclick="go('miplanta')">🌸 Ir a Mi Planta para cuidarla</button>`
+         );
+       };
+       img.src=r.result;
+     };
+     r.readAsDataURL(f);
+
+   } else {
+     est.textContent = "❓ No se encontró una coincidencia clara. Intenta tomar una foto más cercana a la hoja o flor.";
+   }
+ } catch (err) {
+   console.error(err);
+   est.textContent = "❌ " + err.message;
+ }
+}
+
+function mostrarFicha(p,esEscaneo){
+ document.getElementById("ficha").innerHTML=`<h2>${p.e} ${p.n}${esEscaneo?` <span class="pill">🔍 Pl@ntNet</span>`:""}</h2><table>
+ <tr><td>🔬 Científico</td><td><i>${p.c}</i></td></tr><tr><td>🌎 Origen</td><td>${p.o}</td></tr>
+ <tr><td>🌱 Tipo</td><td>${p.t}</td></tr><tr><td>📏 Tamaño</td><td>${p.tam}</td></tr>
+ <tr><td>☀️ Luz</td><td>${p.luz}</td></tr><tr><td>💧 Agua</td><td>${p.ag}</td></tr>
+ <tr><td>🌱 Suelo</td><td>${p.su}</td></tr><tr><td>🌡️ Temp.</td><td>${p.tem}</td></tr>
+ <tr><td>🪴 Cuidados</td><td>${p.cu}</td></tr><tr><td>🌎 Beneficio</td><td>${p.be}</td></tr>
+ <tr><td>💡 Curiosidad</td><td>${p.cur}</td></tr></table>`;
+ if(!S.desc.includes(p.n)){S.desc.push(p.n);gana(15,"planta descubierta");
+  const m=mision();if(m&&typeof m.id=="number"&&((m.id==1)||(m.id==4&&S.desc.length>=3)||(m.id==7&&(p.o||"").match(/[Mm]éxic|tropical/))))completar(m.id);else save()}
+}
+
+V.miplanta=()=>{if(!S.planta)return `<h2><span class="sec-title" style="--sc:var(--c-miplanta)">🌸</span> Adoptar planta</h2>${bar()}<div class="grid">${todasPlantas().map((p,i)=>`<div class="card"><div class="planta">${p.e}</div><b>${p.n}</b><br><small class="mut">${p.t}</small><br><span class="pill">🌱 ${p.cost}</span>
+ <button ${S.puntos<p.cost?"disabled":""} onclick="adoptar(${i})">Adoptar</button>${S.puntos<p.cost?`<small class="mut">Te faltan ${p.cost-S.puntos} EcoPuntos</small>`:""}</div>`).join("")}</div>`;
+ const p=todasPlantas().find(x=>x.n==S.planta);
+ const foto=(S.fotosReales&&S.fotosReales[p.n])||p.foto;
+ return `<h2><span class="sec-title" style="--sc:var(--c-miplanta)">🌸</span> Mi Planta</h2>${bar()}<div class="card"><div class="planta">${visualCrecimiento(p,foto)}</div>
+ <h2 style="text-align:center">${p.n}</h2><p style="text-align:center" class="mut">${ETAPAS[S.crec]}</p>
+ <div class="bar"><i style="width:${(S.crec/3)*100}%"></i></div>
+ <p class="mut">${p.cu} · Luz: ${p.luz} · Agua: ${p.ag}</p></div>
+ <div class="card"><h2>Acciones de cuidado</h2>${CUID.map((c,i)=>{const ok=S.cuidados.includes(i);
+ return `<div class="row" style="justify-content:space-between;align-items:center;margin:6px 0"><span>${c.n}${ok?"<small class='mut'>desbloqueada</small>":`<small class='mut'>🌱 ${c.c}</small>`}</span>
+ <button class="sec" ${!ok&&S.puntos<c.c?"disabled":""} onclick="${ok?`usar(${i})`:`desbloq(${i})`}">${ok?"Usar":"Desbloquear"}</button></div>`}).join("")}</div>
+ <div class="card" style="text-align:center"><h2 style="justify-content:center">🖼️ Ilustración de referencia</h2>
+ <div style="max-width:190px;margin:0 auto">${ILUS[p.n]||`<div class="planta">${p.e}</div>`}</div>
+ <small class="mut">Cómo luce típicamente ${p.n}</small></div>
+ <div class="card" style="text-align:center"><h2 style="justify-content:center">📷 Tu foto real</h2>
+ <input type="file" id="frIn" accept="image/*" capture="environment" style="display:none" onchange="fotoReal(this,'${p.n.replace(/'/g,"\\'")}')">
+ ${foto?`<img src="${foto}" class="ph" style="max-height:220px"><button class="sec" onclick="document.getElementById('frIn').click()">Cambiar foto</button>`
+  :`<p class="mut">Sube una foto de tu propia planta para verla aquí.</p><button onclick="document.getElementById('frIn').click()">📷 Subir foto real</button>`}
+ </div>`}
+
+function fotoReal(input,nombre){const f=input.files[0];if(!f)return;const r=new FileReader();
+ r.onload=()=>{const img=new Image();img.onload=()=>{
+ const c=document.createElement("canvas"),sz=260,s=Math.max(sz/img.width,sz/img.height);
+ c.width=sz;c.height=sz;const ctx=c.getContext("2d"),w=img.width*s,h=img.height*s;
+ ctx.drawImage(img,(sz-w)/2,(sz-h)/2,w,h);
+ S.fotosReales=S.fotosReales||{};S.fotosReales[nombre]=c.toDataURL("image/jpeg",.75);save();render()};img.src=r.result};r.readAsDataURL(f)}
+
+function visualCrecimiento(p,foto){if(S.crec==0)return "🌱";if(S.crec==1)return "🌿";
+ const cont=foto?`<img src="${foto}" style="width:${S.crec==2?66:96}px;height:${S.crec==2?66:96}px;border-radius:14px;object-fit:cover">`
+  :`<div style="width:${S.crec==2?70:100}px;margin:0 auto">${ILUS[p.n]||`<span style="font-size:2.6rem">${p.e}</span>`}</div>`;
+ return cont}
+
+function adoptar(i){const p=todasPlantas()[i];if(S.puntos<p.cost)return toast("Te faltan "+(p.cost-S.puntos)+" EcoPuntos");
+ S.puntos-=p.cost;S.planta=p.n;S.crec=0;toast("🪴 ¡Adoptaste "+p.n+"!");chkIns();save();render()}
+
+function desbloq(i){const c=CUID[i];if(S.puntos<c.c)return;S.puntos-=c.c;S.cuidados.push(i);toast("🔓 "+c.n+" desbloqueada");chkIns();save();
+ const m=mision();if(m&&m.id==6&&i==0)completar(m.id);else render()}
+
+function usar(i){if(S.crec<3){S.crec++;toast(CUID[i].n+" · tu planta creció")}else toast("Tu planta ya está desarrollada 🌳");gana(5);render()}
+
+V.mascotas=()=>`<h2><span class="sec-title" style="--sc:var(--c-mascota)">🦋</span> EcoMascotas</h2>${bar()}<div class="grid">${MA.map((m,i)=>{const ad=S.mascotas.includes(m.n);
+ const todos=m.acc.every((x,j)=>S.accMasc.includes(m.n+j)),tieneCasa=S.casitas.includes(m.n),cCasa=Math.round(m.cost*0.4),cs=CASITAS[m.n];
+ return `<div class="card"><div class="planta">${tieneCasa?cs.e:m.e}</div><b>${m.n}</b>${tieneCasa?` <span class="pill">${cs.n}</span>`:""}<br><small class="mut">${m.h}</small><br>
+ <small>🍽️ ${m.a}<br>🌎 ${m.i}<br>💡 ${m.cur}</small><br><span class="pill">🌱 ${m.cost}</span>${ad?`<div>${m.acc.map((x,j)=>{const k=m.n+j,ok=S.accMasc.includes(k);
+   return `<button class="sec" style="font-size:.75rem;padding:6px 8px;margin:2px 0;width:100%" ${ok?"disabled":""} onclick="accM('${k}')">${ok?"✅ ":"🔓 "}${x}</button>`}).join("")}
+   ${todos?(tieneCasa?`<div class="mut" style="margin-top:6px">${cs.e} Casita construida</div>`
+    :`<button style="margin-top:6px;width:100%" ${S.puntos<cCasa?"disabled":""} onclick="comprarCasita('${m.n}',${cCasa})">${cs.e} Comprar ${cs.n} (${cCasa} 🌱)</button>`)
+   :`<small class="mut">Desbloquea todos los cuidados para poder construir su casita</small>`}</div>`
+  :`<button ${S.puntos<m.cost?"disabled":""} onclick="adopM(${i})">Adoptar</button>${S.puntos<m.cost?`<small class="mut">Faltan ${m.cost-S.puntos}</small>`:""}`}</div>`}).join("")}</div>`;
+
+function comprarCasita(n,c){if(S.puntos<c||S.casitas.includes(n))return;S.puntos-=c;S.casitas.push(n);toast(CASITAS[n].e+" ¡"+CASITAS[n].n+" construida!");chkIns();save();render()}
+function adopM(i){const m=MA[i];if(S.puntos<m.cost)return;S.puntos-=m.cost;S.mascotas.push(m.n);toast("🐾 ¡Adoptaste "+m.n+"!");chkIns();save();
+ const q=mision();if(q&&q.id==3&&m.pol)completar(q.id);else render()}
+function accM(k){if(S.puntos<25)return toast("Necesitas 25 EcoPuntos");S.puntos-=25;S.accMasc.push(k);toast("🔓 Cuidado desbloqueado");chkIns();save();
+ const m=mision();if(m&&m.id==8)completar(m.id);else render()}
+
+V.perfil=()=>{const av=S.foto?`<img src="${S.foto}" class="av">`:`<div class="av av-ph">${H(S.nombre[0]||"E").toUpperCase()}</div>`;
+const nx=NIV.find(x=>x[0]>S.puntos),falta=nx?nx[0]-S.puntos:0,pct=nx?Math.min(100,S.puntos/nx[0]*100):100;
+return `<div class="pf-head">
+ <label class="av-wrap">${av}<div class="av-edit">📷</div><input type="file" accept="image/*" style="display:none" onchange="subirFoto(this)"></label>
+ <h2 style="margin:.3em 0 0">${H(S.nombre)}</h2>
+ <span class="badge-nivel">🌿 ${nivel()}</span>${S.proveedor?`<div class="mut" style="margin-top:4px;font-size:.75rem">Conectado con ${S.proveedor}</div>`:""}
+</div>
+<div class="card"><div class="row" style="justify-content:space-between;align-items:center">
+ <b>🌱 ${S.puntos} EcoPuntos</b>${nx?`<small class="mut">Faltan ${falta} para el siguiente nivel</small>`:`<small class="mut">Nivel máximo</small>`}</div>
+ <div class="bar" style="margin-top:8px"><i style="width:${pct}%"></i></div></div>
+<div class="stat-grid">
+ <div class="stat"><span>🌸</span><b>${S.planta||"—"}</b><small class="mut">Planta actual</small></div>
+ <div class="stat"><span>🦋</span><b>${S.mascotas.length}</b><small class="mut">EcoMascotas</small></div>
+ <div class="stat"><span>🌎</span><b>${S.hechas.length}</b><small class="mut">Misiones</small></div>
+ <div class="stat"><span>🏅</span><b>${S.ins.length}/${INS.length}</b><small class="mut">Insignias</small></div>
+</div>
+<div class="card"><h2>🏅 Insignias</h2><div class="ins-grid">${INS.map(i=>{const ok=S.ins.includes(i.n);
+ return `<div class="ins ${ok?"on":""}"><div class="ins-ic">${ok?i.n.split(" ")[0]:"🔒"}</div><small>${ok?i.n.replace(/^\S+\s/,""):"Bloqueada"}</small></div>`}).join("")}</div></div>
+<div class="card"><h2>📊 Progreso</h2><table>
+ <tr><td>EcoMisiones completadas</td><td>${S.hechas.length}</td></tr>
+ <tr><td>Plantas descubiertas</td><td>${S.desc.length}</td></tr>
+ <tr><td>Residuos registrados</td><td>${S.res.length}</td></tr>
+ <tr><td>Cuidados desbloqueados</td><td>${S.cuidados.length}/4</td></tr>
+ <tr><td>Crecimiento de la planta</td><td>${S.planta?ETAPAS[S.crec]:"—"}</td></tr></table>
+ <button class="sec" style="margin-top:10px" onclick="reiniciar()">Reiniciar progreso</button></div>`}
+
+function subirFoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();
+ r.onload=()=>{const img=new Image();img.onload=()=>{
+ const c=document.createElement("canvas"),sz=180,s=Math.max(sz/img.width,sz/img.height);
+ c.width=sz;c.height=sz;
+ const ctx=c.getContext("2d"),w=img.width*s,h=img.height*s;
+ ctx.drawImage(img,(sz-w)/2,(sz-h)/2,w,h);
+ S.foto=c.toDataURL("image/jpeg",.85);save();render()};img.src=r.result};r.readAsDataURL(f)}
+
+function entrar(){const n=document.getElementById("nm").value.trim()||"EcoAmigo";S=def(n);save();tab="misiones";render()}
+function entrarSocial(prov){const n=(prompt("Nombre asociado a tu cuenta de "+prov+":")||"").trim();if(!n)return;
+ S=def(n);S.proveedor=prov;save();tab="misiones";render()}
+function reiniciar(){if(confirm("¿Borrar todo el progreso?")){S=null;try{localStorage.removeItem("eco360")}catch(e){}render()}}
+
+load();render();
+</script>
+</body>
+</html>
